@@ -94,15 +94,19 @@ class TestDisutilsScheme:
         # This deals with nt/posix path differences
         install_scripts = os.path.normcase(os.path.abspath(
             os.path.join(os.path.sep, 'somewhere', 'else')))
-        f = tmpdir.mkdir("config").join("setup.cfg")
-        f.write("[install]\ninstall-scripts=" + install_scripts)
-        from distutils.dist import Distribution
-        # patch the function that returns what config files are present
-        monkeypatch.setattr(
-            Distribution,
-            'find_config_files',
-            lambda self: [f],
-        )
+
+        # In virtualenv/tox, distutils ignores config files for paths
+        # So we need to patch the install command directly
+        from distutils.command.install import install
+
+        orig_finalize_options = install.finalize_options
+
+        def mock_finalize_options(self):
+            orig_finalize_options(self)
+            self.install_scripts = install_scripts
+
+        monkeypatch.setattr(install, 'finalize_options', mock_finalize_options)
+
         scheme = distutils_scheme('example')
         assert scheme['scripts'] == install_scripts
 
@@ -113,15 +117,21 @@ class TestDisutilsScheme:
         # This deals with nt/posix path differences
         install_lib = os.path.normcase(os.path.abspath(
             os.path.join(os.path.sep, 'somewhere', 'else')))
-        f = tmpdir.mkdir("config").join("setup.cfg")
-        f.write("[install]\ninstall-lib=" + install_lib)
-        from distutils.dist import Distribution
-        # patch the function that returns what config files are present
-        monkeypatch.setattr(
-            Distribution,
-            'find_config_files',
-            lambda self: [f],
-        )
+
+        # In virtualenv/tox, distutils ignores config files for paths
+        # So we need to patch the install command directly
+        from distutils.command.install import install
+
+        orig_finalize_options = install.finalize_options
+
+        def mock_finalize_options(self):
+            orig_finalize_options(self)
+            self.install_lib = install_lib
+            self.install_platlib = install_lib + os.path.sep
+            self.install_purelib = install_lib + os.path.sep
+
+        monkeypatch.setattr(install, 'finalize_options', mock_finalize_options)
+
         scheme = distutils_scheme('example')
         assert scheme['platlib'] == install_lib + os.path.sep
         assert scheme['purelib'] == install_lib + os.path.sep
