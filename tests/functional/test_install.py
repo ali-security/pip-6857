@@ -472,7 +472,7 @@ def test_install_using_install_option_and_editable(script, tmpdir):
     """
     folder = 'script_folder'
     script.scratch_path.join(folder).mkdir()
-    url = 'git+git://github.com/pypa/pip-test-package'
+    url = 'git+https://github.com/pypa/pip-test-package'
     result = script.pip(
         'install', '-e', '%s#egg=pip-test-package' %
         local_checkout(url, tmpdir.join("cache")),

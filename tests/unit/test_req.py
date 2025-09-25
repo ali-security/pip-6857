@@ -165,7 +165,7 @@ class TestRequirementSet(object):
         reqset = self.basic_reqset(require_hashes=True)
         reqset.add_requirement(
             list(process_line(
-                'git+git://github.com/pypa/pip-test-package --hash=sha256:123',
+                'git+https://github.com/pypa/pip-test-package --hash=sha256:123',
                 'file',
                 1))[0])
         dir_path = data.packages.join('FSPkg')
