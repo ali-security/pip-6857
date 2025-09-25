@@ -30,6 +30,8 @@ matrix:
       env: TOXENV=py27 VENDOR=no WHEELS=yes
     - python: 3.5
       env: TOXENV=py35 VENDOR=no WHEELS=yes
+    - python: 3.8
+      env: TOXENV=py38
 
   allow_failures:
     - python: nightly
