@@ -1,6 +1,6 @@
 freezegun
 pretend
-pytest
+pytest==3.10.1
 pytest-catchlog
 pytest-timeout
 pytest-xdist
