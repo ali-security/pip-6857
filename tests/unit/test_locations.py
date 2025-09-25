@@ -101,7 +101,7 @@ class TestDisutilsScheme:
         monkeypatch.setattr(
             Distribution,
             'find_config_files',
-            lambda self: [f],
+            lambda self: [str(f)],  # Convert Path to string
         )
         scheme = distutils_scheme('example')
         assert scheme['scripts'] == install_scripts
@@ -120,7 +120,7 @@ class TestDisutilsScheme:
         monkeypatch.setattr(
             Distribution,
             'find_config_files',
-            lambda self: [f],
+            lambda self: [str(f)],  # Convert Path to string
         )
         scheme = distutils_scheme('example')
         assert scheme['platlib'] == install_lib + os.path.sep
