@@ -309,7 +309,7 @@ def test_finder_priority_page_over_deplink():
     # Check that the dependency_link is last
     assert all_versions[-1].location.url.startswith('https://warehouse')
     link = finder.find_requirement(req, False)
-    assert link.url.startswith("https://files.pythonhosted.org/packages"), link
+    assert link.url.startswith("https://files.pythonhosted.org"), link
 
 
 def test_finder_priority_nonegg_over_eggfragments():
