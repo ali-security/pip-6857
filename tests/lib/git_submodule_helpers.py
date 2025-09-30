@@ -7,7 +7,7 @@ def _create_test_package_submodule(env):
     env.scratch_path.join("version_pkg_submodule").mkdir()
     submodule_path = env.scratch_path / 'version_pkg_submodule'
     env.run('touch', 'testfile', cwd=submodule_path)
-    env.run('git', 'init', cwd=submodule_path)
+    env.run('git', 'init', cwd=submodule_path, expect_error=True)
     env.run('git', 'add', '.', cwd=submodule_path)
     env.run('git', 'commit', '-q',
             '--author', 'pip <pypa-dev@googlegroups.com>',

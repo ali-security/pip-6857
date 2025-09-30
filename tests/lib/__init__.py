@@ -461,7 +461,7 @@ setup(name='version_subpkg',
       entry_points=dict(console_scripts=['version_pkg=version_subpkg:main']))
         """))
 
-    script.run('git', 'init', cwd=version_pkg_path)
+    script.run('git', 'init', cwd=version_pkg_path, expect_error=True)
     script.run('git', 'add', '.', cwd=version_pkg_path)
     script.run(
         'git', 'commit', '-q',
@@ -516,7 +516,7 @@ def _create_test_package(script, name='version_pkg', vcs='git'):
 
 def _vcs_add(script, version_pkg_path, vcs='git'):
     if vcs == 'git':
-        script.run('git', 'init', cwd=version_pkg_path)
+        script.run('git', 'init', cwd=version_pkg_path, expect_error=True)
         script.run('git', 'add', '.', cwd=version_pkg_path)
         script.run(
             'git', 'commit', '-q',
@@ -524,7 +524,7 @@ def _vcs_add(script, version_pkg_path, vcs='git'):
             '-am', 'initial version', cwd=version_pkg_path,
         )
     elif vcs == 'hg':
-        script.run('hg', 'init', cwd=version_pkg_path)
+        script.run('hg', 'init', cwd=version_pkg_path, expect_error=True)
         script.run('hg', 'add', '.', cwd=version_pkg_path)
         script.run(
             'hg', 'commit', '-q',
@@ -544,7 +544,7 @@ def _vcs_add(script, version_pkg_path, vcs='git'):
 
         version_pkg_path = checkout_path
     elif vcs == 'bazaar':
-        script.run('bzr', 'init', cwd=version_pkg_path)
+        script.run('bzr', 'init', cwd=version_pkg_path, expect_error=True)
         script.run('bzr', 'add', '.', cwd=version_pkg_path)
         script.run(
             'bzr', 'whoami', 'pip <pypa-dev@googlegroups.com>',

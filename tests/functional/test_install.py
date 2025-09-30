@@ -472,7 +472,7 @@ def test_install_using_install_option_and_editable(script, tmpdir):
     """
     folder = 'script_folder'
     script.scratch_path.join(folder).mkdir()
-    url = 'git+git://github.com/pypa/pip-test-package'
+    url = 'git+https://github.com/pypa/pip-test-package'
     result = script.pip(
         'install', '-e', '%s#egg=pip-test-package' %
         local_checkout(url, tmpdir.join("cache")),
@@ -490,10 +490,10 @@ def test_install_global_option_using_editable(script, tmpdir):
     """
     Test using global distutils options, but in an editable installation
     """
-    url = 'hg+http://bitbucket.org/runeh/anyjson'
+    url = 'hg+https://www.mercurial-scm.org/repo/python-hglib'
     result = script.pip(
         'install', '--global-option=--version', '-e',
-        '%s@0.2.5#egg=anyjson' % local_checkout(url, tmpdir.join("cache")),
+        '%s@2.6.2#egg=anyjson' % local_checkout(url, tmpdir.join("cache")),
         expect_stderr=True)
     assert 'Successfully installed anyjson' in result.stdout
 

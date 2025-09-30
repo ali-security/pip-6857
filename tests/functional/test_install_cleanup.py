@@ -46,7 +46,7 @@ def test_cleanup_after_install_editable_from_hg(script, tmpdir):
         '-e',
         '%s#egg=ScriptTest' %
         local_checkout(
-            'hg+https://bitbucket.org/ianb/scripttest',
+            'hg+https://repo.mercurial-scm.org/python-hglib',
             tmpdir.join("cache"),
         ),
         expect_error=True,

@@ -271,7 +271,7 @@ def _test_uninstall_editable_with_source_outside_venv(
     result = script.run(
         'git', 'clone',
         local_repo(
-            'git+git://github.com/pypa/pip-test-package',
+            'git+https://github.com/pypa/pip-test-package',
             cache_dir,
         ),
         tmpdir,
